@@ -1,4 +1,4 @@
-document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -12,14 +12,15 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
         const data = await response.json();
 
         if (data.birthDate && data.expiryDate) {
-            const tableBody = document.getElementById('results');
-            const newRow = tableBody.insertRow();
-            newRow.insertCell(0).textContent = data.birthDate;
-            newRow.insertCell(1).textContent = data.expiryDate;
+            const resultsTable = document.getElementById('results');
+            const newRow = resultsTable.insertRow();
+            newRow.insertCell().innerText = data.birthDate;
+            newRow.insertCell().innerText = data.expiryDate;
         } else {
-            alert('Failed to extract dates. Please try again.');
+            // Handle case when dates are not extracted
+            console.error('Failed to extract dates.');
         }
     } catch (error) {
-        alert('An error occurred. Please try again.');
+        console.error('Error:', error);
     }
 });
